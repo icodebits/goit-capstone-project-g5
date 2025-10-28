@@ -4,13 +4,13 @@ import { getSessionCookie, clearSessionCookie } from '@/lib/auth/cookies';
 
 export async function POST(request: NextRequest) {
   try {
-    const sessionToken = getSessionCookie();
+    const sessionToken = await getSessionCookie();
     
     if (sessionToken) {
       await destroySession(sessionToken);
     }
     
-    clearSessionCookie();
+    await clearSessionCookie();
     
     return NextResponse.json({ success: true });
   } catch (error) {

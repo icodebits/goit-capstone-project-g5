@@ -6,7 +6,7 @@ import { updateProfileSchema } from '@/lib/validators/profile';
 
 export async function GET(request: NextRequest) {
   try {
-    const sessionToken = getSessionCookie();
+    const sessionToken = await getSessionCookie();
     
     if (!sessionToken) {
       return NextResponse.json(
@@ -37,7 +37,7 @@ export async function GET(request: NextRequest) {
 
 export async function PATCH(request: NextRequest) {
   try {
-    const sessionToken = getSessionCookie();
+    const sessionToken = await getSessionCookie();
     
     if (!sessionToken) {
       return NextResponse.json(

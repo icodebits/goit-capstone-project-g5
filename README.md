@@ -1,6 +1,6 @@
 # GoIT Capstone Project G5
 
-A modern Next.js 15 application with authentication, profile management, and a beautiful UI built with TypeScript, Tailwind CSS, and Prisma.
+A modern Next.js 16 application with authentication, profile management, and a beautiful UI built with TypeScript, Tailwind CSS, and Prisma.
 
 ## 🚀 Features
 
@@ -15,7 +15,7 @@ A modern Next.js 15 application with authentication, profile management, and a b
 
 ## 🛠️ Tech Stack
 
-- **Frontend**: Next.js 15, React, TypeScript, Tailwind CSS
+- **Frontend**: Next.js 16, React, TypeScript, Tailwind CSS
 - **Backend**: Next.js API Routes, Prisma ORM
 - **Database**: PostgreSQL
 - **Authentication**: HTTP-only cookies, bcrypt

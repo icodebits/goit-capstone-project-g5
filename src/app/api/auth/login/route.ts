@@ -39,7 +39,7 @@ export async function POST(request: NextRequest) {
     
     // Create new session
     const sessionToken = await createSession(user.id);
-    setSessionCookie(sessionToken);
+    await setSessionCookie(sessionToken);
     
     return NextResponse.json({
       user: {

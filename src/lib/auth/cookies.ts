@@ -1,8 +1,8 @@
 import { cookies } from 'next/headers';
 import { getSessionCookieName, getSessionMaxAge } from './session';
 
-export function setSessionCookie(token: string): void {
-  const cookieStore = cookies();
+export async function setSessionCookie(token: string): Promise<void> {
+  const cookieStore = await cookies();
   const cookieName = getSessionCookieName();
   const maxAge = getSessionMaxAge();
   
@@ -15,15 +15,15 @@ export function setSessionCookie(token: string): void {
   });
 }
 
-export function getSessionCookie(): string | null {
-  const cookieStore = cookies();
+export async function getSessionCookie(): Promise<string | null> {
+  const cookieStore = await cookies();
   const cookieName = getSessionCookieName();
   
   return cookieStore.get(cookieName)?.value || null;
 }
 
-export function clearSessionCookie(): void {
-  const cookieStore = cookies();
+export async function clearSessionCookie(): Promise<void> {
+  const cookieStore = await cookies();
   const cookieName = getSessionCookieName();
   
   cookieStore.delete(cookieName);
