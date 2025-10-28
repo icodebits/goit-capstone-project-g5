@@ -1,4 +1,5 @@
 import { createSession, verifySession, destroySession } from '@/lib/auth/session'
+import { prisma } from '@/lib/db'
 
 // Mock Prisma
 jest.mock('@/lib/db', () => ({
@@ -11,6 +12,8 @@ jest.mock('@/lib/db', () => ({
   },
 }))
 
+const mockedPrisma = prisma as jest.Mocked<typeof prisma>
+
 describe('Session Management', () => {
   beforeEach(() => {
     jest.clearAllMocks()
@@ -18,7 +21,6 @@ describe('Session Management', () => {
 
   describe('createSession', () => {
     it('should create a session with valid user ID', async () => {
-      const { prisma } = require('@/lib/db')
       const mockSession = {
         id: 'session-123',
         userId: 'user-123',
@@ -26,12 +28,12 @@ describe('Session Management', () => {
         expiresAt: new Date(),
       }
       
-      prisma.session.create.mockResolvedValue(mockSession)
+      mockedPrisma.session.create.mockResolvedValue(mockSession)
       
       const token = await createSession('user-123')
       
       expect(token).toBeDefined()
-      expect(prisma.session.create).toHaveBeenCalledWith({
+      expect(mockedPrisma.session.create).toHaveBeenCalledWith({
         data: {
           userId: 'user-123',
           tokenHash: expect.any(String),
@@ -43,8 +45,7 @@ describe('Session Management', () => {
 
   describe('verifySession', () => {
     it('should return null for invalid token', async () => {
-      const { prisma } = require('@/lib/db')
-      prisma.session.findUnique.mockResolvedValue(null)
+      mockedPrisma.session.findUnique.mockResolvedValue(null)
       
       const result = await verifySession('invalid-token')
       
@@ -52,7 +53,6 @@ describe('Session Management', () => {
     })
 
     it('should return user data for valid session', async () => {
-      const { prisma } = require('@/lib/db')
       const mockSession = {
         id: 'session-123',
         userId: 'user-123',
@@ -65,7 +65,7 @@ describe('Session Management', () => {
         },
       }
       
-      prisma.session.findUnique.mockResolvedValue(mockSession)
+      mockedPrisma.session.findUnique.mockResolvedValue(mockSession)
       
       const result = await verifySession('valid-token')
       
@@ -79,12 +79,11 @@ describe('Session Management', () => {
 
   describe('destroySession', () => {
     it('should delete session for valid token', async () => {
-      const { prisma } = require('@/lib/db')
-      prisma.session.deleteMany.mockResolvedValue({ count: 1 })
+      mockedPrisma.session.deleteMany.mockResolvedValue({ count: 1 })
       
       await destroySession('valid-token')
       
-      expect(prisma.session.deleteMany).toHaveBeenCalledWith({
+      expect(mockedPrisma.session.deleteMany).toHaveBeenCalledWith({
         where: { tokenHash: expect.any(String) },
       })
     })
