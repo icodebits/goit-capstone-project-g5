@@ -35,23 +35,27 @@ A modern Next.js 16 application with authentication, profile management, and a b
 ### Local Development
 
 1. **Clone the repository**
+
    ```bash
    git clone <repository-url>
    cd goit-capstone-project-g5
    ```
 
 2. **Install dependencies**
+
    ```bash
    npm install
    ```
 
 3. **Set up environment variables**
+
    ```bash
    cp .env.example .env.local
    # Edit .env.local with your database URL
    ```
 
 4. **Start the development server**
+
    ```bash
    npm run dev
    ```
@@ -61,6 +65,7 @@ A modern Next.js 16 application with authentication, profile management, and a b
 ### Docker Development
 
 1. **Start the Docker environment**
+
    ```bash
    npm run docker:up
    ```
@@ -77,6 +82,7 @@ A modern Next.js 16 application with authentication, profile management, and a b
 ## 🗄️ Database Setup
 
 ### Local Development
+
 ```bash
 # Generate Prisma client
 npm run prisma:generate
@@ -89,6 +95,7 @@ npm run prisma:push
 ```
 
 ### Docker Development
+
 ```bash
 # Run migrations inside Docker container
 docker compose exec app npx prisma migrate dev
@@ -184,6 +191,7 @@ NEXT_PUBLIC_APP_URL="http://localhost:3000"
 ### CI/CD Pipeline
 
 The project includes GitHub Actions workflow that:
+
 - Runs linting and type checking
 - Executes tests with coverage
 - Builds the application
@@ -192,11 +200,13 @@ The project includes GitHub Actions workflow that:
 ## 🧪 API Endpoints
 
 ### Authentication
+
 - `POST /api/auth/register` - User registration
 - `POST /api/auth/login` - User login
 - `POST /api/auth/logout` - User logout
 
 ### Profile
+
 - `GET /api/profile` - Get user profile
 - `PATCH /api/profile` - Update user profile
 

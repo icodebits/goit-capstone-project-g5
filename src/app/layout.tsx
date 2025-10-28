@@ -19,7 +19,9 @@ export const metadata: Metadata = {
     template: "%s | GoIT Capstone",
   },
   description: "Auth, Profile, and Dashboard starter",
-  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000"),
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000",
+  ),
   icons: { icon: "/favicon.ico" },
   robots: { index: true, follow: true },
 };
