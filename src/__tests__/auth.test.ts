@@ -36,7 +36,9 @@ jest.mock('@/lib/db', () => ({
 
 // Import the mocked prisma for use in tests
 import { prisma } from '@/lib/db'
-const mockPrisma = prisma as jest.Mocked<typeof prisma>
+
+// Get the mocked functions with proper typing
+const mockPrisma = jest.mocked(prisma)
 
 describe('Session Management', () => {
   beforeEach(() => {
@@ -50,6 +52,8 @@ describe('Session Management', () => {
         userId: 'user-123',
         tokenHash: 'hashed-token',
         expiresAt: new Date(),
+        createdAt: new Date(),
+        updatedAt: new Date(),
       }
       
       mockPrisma.session.create.mockResolvedValue(mockSession)
@@ -82,6 +86,8 @@ describe('Session Management', () => {
         userId: 'user-123',
         tokenHash: 'hashed-token',
         expiresAt: new Date(Date.now() + 24 * 60 * 60 * 1000), // 24 hours from now
+        createdAt: new Date(),
+        updatedAt: new Date(),
         user: {
           id: 'user-123',
           email: 'test@example.com',
