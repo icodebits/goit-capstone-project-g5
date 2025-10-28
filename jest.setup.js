@@ -1,12 +1,12 @@
 import '@testing-library/jest-dom'
 
 // Polyfill for TextEncoder/TextDecoder in Jest environment
-const { TextEncoder, TextDecoder } = require('util')
+import { TextEncoder, TextDecoder } from 'util'
 global.TextEncoder = TextEncoder
 global.TextDecoder = TextDecoder
 
 // Polyfill for crypto.subtle in Jest environment
-const { webcrypto } = require('crypto')
+import { webcrypto } from 'crypto'
 global.crypto = {
   ...webcrypto,
   subtle: webcrypto.subtle,
