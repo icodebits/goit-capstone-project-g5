@@ -18,6 +18,7 @@ A modern, full-stack Next.js 16 application featuring secure authentication, pro
 ## 🛠️ Tech Stack
 
 ### Frontend
+
 - **Framework**: Next.js 16 with App Router
 - **Language**: TypeScript 5+ with strict mode
 - **Styling**: Tailwind CSS 4 with custom design system
@@ -26,6 +27,7 @@ A modern, full-stack Next.js 16 application featuring secure authentication, pro
 - **Form Handling**: Client-side validation with Zod
 
 ### Backend
+
 - **API**: Next.js API Routes with Edge Runtime support
 - **Database**: PostgreSQL 16 with connection pooling
 - **ORM**: Prisma 6+ with type-safe queries
@@ -34,6 +36,7 @@ A modern, full-stack Next.js 16 application featuring secure authentication, pro
 - **Security**: bcryptjs for password hashing
 
 ### Development & Deployment
+
 - **Containerization**: Docker & Docker Compose
 - **CI/CD**: GitHub Actions with automated testing
 - **Deployment**: Vercel with preview deployments
@@ -235,16 +238,17 @@ goit-capstone-project-g5/
 
 ### Required Environment Variables
 
-| Variable | Description | Example | Required |
-|----------|-------------|---------|----------|
-| `DATABASE_URL` | PostgreSQL connection string | `postgresql://user:pass@host:port/db` | ✅ |
-| `SESSION_COOKIE_NAME` | Name of the session cookie | `SESSION_ID` | ✅ |
-| `SESSION_SECRET` | Secret key for session encryption | `your-32-char-secret-key` | ✅ |
-| `NEXT_PUBLIC_APP_URL` | Public URL of the application | `http://localhost:3000` | ✅ |
+| Variable              | Description                       | Example                               | Required |
+| --------------------- | --------------------------------- | ------------------------------------- | -------- |
+| `DATABASE_URL`        | PostgreSQL connection string      | `postgresql://user:pass@host:port/db` | ✅       |
+| `SESSION_COOKIE_NAME` | Name of the session cookie        | `SESSION_ID`                          | ✅       |
+| `SESSION_SECRET`      | Secret key for session encryption | `your-32-char-secret-key`             | ✅       |
+| `NEXT_PUBLIC_APP_URL` | Public URL of the application     | `http://localhost:3000`               | ✅       |
 
 ### Environment Files
 
 #### Local Development (`.env.local`)
+
 ```env
 # Database connection for local development
 DATABASE_URL="postgresql://postgres:postgres@localhost:5432/goit?schema=public"
@@ -258,6 +262,7 @@ NEXT_PUBLIC_APP_URL="http://localhost:3000"
 ```
 
 #### Docker Development (`.env.dev`)
+
 ```env
 # Database connection for Docker development
 DATABASE_URL="postgresql://postgres:postgres@db:5432/goit?schema=public"
@@ -271,6 +276,7 @@ NEXT_PUBLIC_APP_URL="http://localhost:3000"
 ```
 
 #### Production (Vercel Environment Variables)
+
 ```env
 # Production database (e.g., Neon, Supabase, PlanetScale)
 DATABASE_URL="postgresql://user:pass@host:5432/dbname?schema=public"
@@ -321,9 +327,11 @@ The project includes GitHub Actions workflow that:
 ### Authentication Endpoints
 
 #### `POST /api/auth/register`
+
 Register a new user account.
 
 **Request Body:**
+
 ```json
 {
   "email": "user@example.com",
@@ -333,6 +341,7 @@ Register a new user account.
 ```
 
 **Response:**
+
 ```json
 {
   "success": true,
@@ -345,9 +354,11 @@ Register a new user account.
 ```
 
 #### `POST /api/auth/login`
+
 Authenticate user and create session.
 
 **Request Body:**
+
 ```json
 {
   "email": "user@example.com",
@@ -356,6 +367,7 @@ Authenticate user and create session.
 ```
 
 **Response:**
+
 ```json
 {
   "success": true,
@@ -368,9 +380,11 @@ Authenticate user and create session.
 ```
 
 #### `POST /api/auth/logout`
+
 Logout user and destroy session.
 
 **Response:**
+
 ```json
 {
   "success": true
@@ -380,9 +394,11 @@ Logout user and destroy session.
 ### Profile Endpoints
 
 #### `GET /api/profile`
+
 Get current user profile (requires authentication).
 
 **Response:**
+
 ```json
 {
   "user": {
@@ -394,9 +410,11 @@ Get current user profile (requires authentication).
 ```
 
 #### `PATCH /api/profile`
+
 Update user profile (requires authentication).
 
 **Request Body:**
+
 ```json
 {
   "name": "Updated Name",
@@ -405,6 +423,7 @@ Update user profile (requires authentication).
 ```
 
 **Response:**
+
 ```json
 {
   "user": {
@@ -427,6 +446,7 @@ All endpoints return consistent error responses:
 ```
 
 **Common Status Codes:**
+
 - `200` - Success
 - `400` - Bad Request (validation errors)
 - `401` - Unauthorized (authentication required)
@@ -447,6 +467,7 @@ All endpoints return consistent error responses:
 ### Common Issues
 
 #### Database Connection Issues
+
 ```bash
 # Error: Can't connect to database
 # Solution: Ensure PostgreSQL is running and DATABASE_URL is correct
@@ -455,6 +476,7 @@ npm run prisma:push
 ```
 
 #### Docker Issues
+
 ```bash
 # Error: Port already in use
 # Solution: Stop existing services or change ports
@@ -468,6 +490,7 @@ docker compose up --build
 ```
 
 #### Build Issues
+
 ```bash
 # Error: Prisma client not generated
 # Solution: Generate Prisma client
@@ -480,6 +503,7 @@ npm run typecheck
 ```
 
 #### Authentication Issues
+
 ```bash
 # Error: Session not working
 # Solution: Check SESSION_SECRET and cookie settings
@@ -506,17 +530,20 @@ npm run typecheck
 ### Development Workflow
 
 1. **Fork the repository**
+
    ```bash
    git clone https://github.com/your-username/goit-capstone-project-g5.git
    cd goit-capstone-project-g5
    ```
 
 2. **Create a feature branch**
+
    ```bash
    git checkout -b feature/amazing-feature
    ```
 
 3. **Set up development environment**
+
    ```bash
    npm install
    cp .env.example .env.local
@@ -531,6 +558,7 @@ npm run typecheck
    - Format code: `npm run format`
 
 5. **Commit your changes**
+
    ```bash
    git add .
    git commit -m 'feat: add amazing feature'
