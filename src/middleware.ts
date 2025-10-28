@@ -2,7 +2,28 @@ import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
 export function middleware(request: NextRequest) {
-  // For now, just pass through - we'll implement auth logic later
+  const { pathname } = request.nextUrl;
+  
+  // Skip auth check for public routes
+  if (pathname === '/' || pathname.startsWith('/login') || pathname.startsWith('/register')) {
+    return NextResponse.next();
+  }
+  
+  // Skip auth check for API routes (they handle their own auth)
+  if (pathname.startsWith('/api/')) {
+    return NextResponse.next();
+  }
+  
+  // Check for protected routes - just check if session cookie exists
+  // Full session validation happens in the API routes
+  if (pathname.startsWith('/dashboard') || pathname.startsWith('/profile')) {
+    const sessionToken = request.cookies.get('SESSION_ID')?.value;
+    
+    if (!sessionToken) {
+      return NextResponse.redirect(new URL('/login', request.url));
+    }
+  }
+  
   return NextResponse.next();
 }
 
