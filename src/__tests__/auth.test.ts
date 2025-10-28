@@ -1,5 +1,27 @@
 import { createSession, verifySession, destroySession } from '@/lib/auth/session'
-import { prisma } from '@/lib/db'
+
+// Mock crypto functions
+const mockCrypto = {
+  getRandomValues: jest.fn((arr: Uint8Array) => {
+    for (let i = 0; i < arr.length; i++) {
+      arr[i] = Math.floor(Math.random() * 256)
+    }
+    return arr
+  }),
+  subtle: {
+    digest: jest.fn(async (algorithm: string, data: Uint8Array) => {
+      // Simple mock hash function
+      const hash = Array.from(data).reduce((acc: number, byte: number) => acc + byte, 0).toString(16)
+      return new Uint8Array(hash.length).fill(0)
+    }),
+  },
+}
+
+// Mock global crypto
+Object.defineProperty(global, 'crypto', {
+  value: mockCrypto,
+  writable: true,
+})
 
 // Mock Prisma
 jest.mock('@/lib/db', () => ({
@@ -12,7 +34,9 @@ jest.mock('@/lib/db', () => ({
   },
 }))
 
-const mockedPrisma = prisma as jest.Mocked<typeof prisma>
+// Import the mocked prisma for use in tests
+import { prisma } from '@/lib/db'
+const mockPrisma = prisma as jest.Mocked<typeof prisma>
 
 describe('Session Management', () => {
   beforeEach(() => {
@@ -28,12 +52,12 @@ describe('Session Management', () => {
         expiresAt: new Date(),
       }
       
-      mockedPrisma.session.create.mockResolvedValue(mockSession)
+      mockPrisma.session.create.mockResolvedValue(mockSession)
       
       const token = await createSession('user-123')
       
       expect(token).toBeDefined()
-      expect(mockedPrisma.session.create).toHaveBeenCalledWith({
+      expect(mockPrisma.session.create).toHaveBeenCalledWith({
         data: {
           userId: 'user-123',
           tokenHash: expect.any(String),
@@ -45,7 +69,7 @@ describe('Session Management', () => {
 
   describe('verifySession', () => {
     it('should return null for invalid token', async () => {
-      mockedPrisma.session.findUnique.mockResolvedValue(null)
+      mockPrisma.session.findUnique.mockResolvedValue(null)
       
       const result = await verifySession('invalid-token')
       
@@ -65,7 +89,7 @@ describe('Session Management', () => {
         },
       }
       
-      mockedPrisma.session.findUnique.mockResolvedValue(mockSession)
+      mockPrisma.session.findUnique.mockResolvedValue(mockSession)
       
       const result = await verifySession('valid-token')
       
@@ -79,11 +103,11 @@ describe('Session Management', () => {
 
   describe('destroySession', () => {
     it('should delete session for valid token', async () => {
-      mockedPrisma.session.deleteMany.mockResolvedValue({ count: 1 })
+      mockPrisma.session.deleteMany.mockResolvedValue({ count: 1 })
       
       await destroySession('valid-token')
       
-      expect(mockedPrisma.session.deleteMany).toHaveBeenCalledWith({
+      expect(mockPrisma.session.deleteMany).toHaveBeenCalledWith({
         where: { tokenHash: expect.any(String) },
       })
     })

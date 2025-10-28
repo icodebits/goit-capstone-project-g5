@@ -1,5 +1,17 @@
 import '@testing-library/jest-dom'
 
+// Polyfill for TextEncoder/TextDecoder in Jest environment
+const { TextEncoder, TextDecoder } = require('util')
+global.TextEncoder = TextEncoder
+global.TextDecoder = TextDecoder
+
+// Polyfill for crypto.subtle in Jest environment
+const { webcrypto } = require('crypto')
+global.crypto = {
+  ...webcrypto,
+  subtle: webcrypto.subtle,
+}
+
 // Mock Next.js router
 jest.mock('next/navigation', () => ({
   useRouter() {
@@ -31,18 +43,4 @@ jest.mock('next/headers', () => ({
   },
 }))
 
-// Mock Prisma
-jest.mock('@/lib/db', () => ({
-  prisma: {
-    user: {
-      findUnique: jest.fn(),
-      create: jest.fn(),
-      update: jest.fn(),
-    },
-    session: {
-      findUnique: jest.fn(),
-      create: jest.fn(),
-      deleteMany: jest.fn(),
-    },
-  },
-}))
+// Prisma mocking is done in individual test files
