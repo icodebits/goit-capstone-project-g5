@@ -1,6 +1,7 @@
 declare module "swagger-ui-react" {
   import * as React from "react";
-  const SwaggerUI: React.ComponentType<any>;
+  type SwaggerUIProps = Record<string, unknown>;
+  const SwaggerUI: React.ComponentType<SwaggerUIProps>;
   export default SwaggerUI;
 }
 
