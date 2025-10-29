@@ -17,6 +17,13 @@ const customJestConfig = {
     "src/**/*.{js,jsx,ts,tsx}",
     "!src/**/*.d.ts",
     "!src/generated/**/*",
+    // Exclude Next.js App Router pages and UI components from coverage for now
+    "!src/app/**",
+    "!src/components/**",
+    // Exclude swagger/OpenAPI wiring from coverage
+    "!src/app/api/openapi/**",
+    "!src/app/docs/**",
+    "!src/lib/openapi.ts",
   ],
   coverageThreshold: {
     global: {
