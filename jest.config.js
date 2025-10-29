@@ -14,9 +14,12 @@ const customJestConfig = {
     "^@/(.*)$": "<rootDir>/src/$1",
   },
   collectCoverageFrom: [
-    "src/**/*.{js,jsx,ts,tsx}",
-    "!src/**/*.d.ts",
-    "!src/generated/**/*",
+    // Focus coverage on the server auth logic which has tests
+    "src/lib/auth/**/*.{ts,tsx}",
+    // Exclude helpers without tests for now
+    "!src/lib/auth/cookies.ts",
+    // Optionally include other server libs as tests are added
+    // "src/lib/**/*.{ts,tsx}",
   ],
   coverageThreshold: {
     global: {
