@@ -9,9 +9,11 @@ import "swagger-ui-react/swagger-ui.css";
 export default function ApiDocsPage() {
   return (
     <div style={{ minHeight: "100dvh" }}>
-      <SwaggerUI url="/api/openapi" docExpansion="list" defaultModelsExpandDepth={0} />
+      <SwaggerUI
+        url="/api/openapi"
+        docExpansion="list"
+        defaultModelsExpandDepth={0}
+      />
     </div>
   );
 }
-
-

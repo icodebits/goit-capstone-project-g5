@@ -6,9 +6,7 @@ export const openApiSpec = {
     description:
       "OpenAPI specification for authentication, profile, and sessions in the Next.js application.",
   },
-  servers: [
-    { url: "http://localhost:3000", description: "Local" },
-  ],
+  servers: [{ url: "http://localhost:3000", description: "Local" }],
   tags: [
     { name: "Auth", description: "Authentication" },
     { name: "Profile", description: "User profile" },
@@ -37,11 +35,19 @@ export const openApiSpec = {
           },
           409: {
             description: "Email already in use",
-            content: { "application/json": { schema: { $ref: "#/components/schemas/ErrorResponse" } } },
+            content: {
+              "application/json": {
+                schema: { $ref: "#/components/schemas/ErrorResponse" },
+              },
+            },
           },
           400: {
             description: "Invalid input",
-            content: { "application/json": { schema: { $ref: "#/components/schemas/ErrorResponse" } } },
+            content: {
+              "application/json": {
+                schema: { $ref: "#/components/schemas/ErrorResponse" },
+              },
+            },
           },
         },
       },
@@ -62,7 +68,10 @@ export const openApiSpec = {
           200: {
             description: "Success",
             headers: {
-              "Set-Cookie": { description: "HTTP-only session cookie", schema: { type: "string" } },
+              "Set-Cookie": {
+                description: "HTTP-only session cookie",
+                schema: { type: "string" },
+              },
             },
             content: {
               "application/json": {
@@ -72,7 +81,11 @@ export const openApiSpec = {
           },
           401: {
             description: "Invalid credentials",
-            content: { "application/json": { schema: { $ref: "#/components/schemas/ErrorResponse" } } },
+            content: {
+              "application/json": {
+                schema: { $ref: "#/components/schemas/ErrorResponse" },
+              },
+            },
           },
         },
       },
@@ -86,7 +99,10 @@ export const openApiSpec = {
             description: "Success",
             content: {
               "application/json": {
-                schema: { type: "object", properties: { success: { type: "boolean" } } },
+                schema: {
+                  type: "object",
+                  properties: { success: { type: "boolean" } },
+                },
               },
             },
           },
@@ -109,7 +125,14 @@ export const openApiSpec = {
               },
             },
           },
-          401: { description: "No session", content: { "application/json": { schema: { $ref: "#/components/schemas/ErrorResponse" } } } },
+          401: {
+            description: "No session",
+            content: {
+              "application/json": {
+                schema: { $ref: "#/components/schemas/ErrorResponse" },
+              },
+            },
+          },
         },
       },
       patch: {
@@ -128,12 +151,29 @@ export const openApiSpec = {
             description: "Updated user",
             content: {
               "application/json": {
-                schema: { type: "object", properties: { user: { $ref: "#/components/schemas/User" } } },
+                schema: {
+                  type: "object",
+                  properties: { user: { $ref: "#/components/schemas/User" } },
+                },
               },
             },
           },
-          400: { description: "Invalid data or email taken", content: { "application/json": { schema: { $ref: "#/components/schemas/ErrorResponse" } } } },
-          401: { description: "No session", content: { "application/json": { schema: { $ref: "#/components/schemas/ErrorResponse" } } } },
+          400: {
+            description: "Invalid data or email taken",
+            content: {
+              "application/json": {
+                schema: { $ref: "#/components/schemas/ErrorResponse" },
+              },
+            },
+          },
+          401: {
+            description: "No session",
+            content: {
+              "application/json": {
+                schema: { $ref: "#/components/schemas/ErrorResponse" },
+              },
+            },
+          },
         },
       },
     },
@@ -194,5 +234,3 @@ export const openApiSpec = {
 } as const;
 
 export type OpenApiSpec = typeof openApiSpec;
-
-

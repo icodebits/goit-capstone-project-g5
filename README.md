@@ -619,6 +619,7 @@ This project is licensed under the MIT License.
 - OpenAPI JSON: `http://localhost:3000/api/openapi`
 
 Notes:
+
 - When running in Docker, start the stack first: `npm run docker:up`
 - If you change API routes or schemas, update `src/lib/openapi.ts`
 - If you see a module error for `swagger-ui-react`, reinstall deps or rebuild Docker: `npm install` or `docker compose up --build`
